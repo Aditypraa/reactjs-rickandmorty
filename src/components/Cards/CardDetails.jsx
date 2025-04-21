@@ -1,59 +1,50 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useCharacterDetails } from "../../hooks/useCharacterDetails";
+import Loading from "../UI/Loading";
+import Error from "../UI/Error";
 
 const CardDetails = () => {
-  let { id } = useParams();
-  let [fetchData, setFetchData] = useState([]);
+  const { id } = useParams();
+  const { character, loading, error } = useCharacterDetails(id);
 
-  console.log(fetchData);
+  const renderStatus = () => {
+    if (loading) return null;
+    if (error) return null;
 
-  let api = `https://rickandmortyapi.com/api/character/${id}`;
-  useEffect(() => {
-    (async () => {
-      let response = await fetch(api);
-      let data = await response.json();
-      setFetchData(data);
-    })();
-  }, [api]);
+    if (character.status === "Dead") {
+      return <div className="badge bg-danger fs-5">{character.status}</div>;
+    } else if (character.status === "Alive") {
+      return <div className="badge bg-success fs-5">{character.status}</div>;
+    } else {
+      return <div className="badge bg-secondary fs-5">{character.status}</div>;
+    }
+  };
+
+  if (loading) return <Loading />;
+  if (error) return <Error message={error} />;
 
   return (
-    // Create a card details component that displays the character's name, image, location, origin, gender, species, type, and status.
     <div className="container d-flex justify-content-center mb-5">
       <div className="d-flex flex-column gap-3">
-        <h1 className="text-center">{fetchData.name}</h1>
-
-        <img className="img-fluid" src={fetchData.image} alt="" />
-        {(() => {
-          if (fetchData.status === "Dead") {
-            return (
-              <div className="badge bg-danger fs-5">{fetchData.status}</div>
-            );
-          } else if (fetchData.status === "Alive") {
-            return (
-              <div className=" badge bg-success fs-5">{fetchData.status}</div>
-            );
-          } else {
-            return (
-              <div className="badge bg-secondary fs-5">{fetchData.status}</div>
-            );
-          }
-        })()}
+        <h1 className="text-center">{character.name}</h1>
+        <img className="img-fluid" src={character.image} alt={character.name} />
+        {renderStatus()}
         <div className="content">
           <div className="">
-            <span className="fw-bold">Gender : </span>
-            {fetchData.gender}
+            <span className="fw-bold">Gender: </span>
+            {character.gender}
           </div>
           <div className="">
             <span className="fw-bold">Location: </span>
-            {fetchData.location?.name}
+            {character.location?.name}
           </div>
           <div className="">
             <span className="fw-bold">Origin: </span>
-            {fetchData.origin?.name}
+            {character.origin?.name}
           </div>
           <div className="">
             <span className="fw-bold">Species: </span>
-            {fetchData.species}
+            {character.species}
           </div>
         </div>
       </div>

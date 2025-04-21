@@ -1,26 +1,28 @@
 import Filters from "../components/Filters/Filters";
 import Cards from "../components/Cards/Cards";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Pagination from "../components/Pagination/Pagination";
 import Search from "../components/Search/Search";
+import { useCharacters } from "../hooks/useCharacters";
+import Loading from "../components/UI/Loading";
+import Error from "../components/UI/Error";
 
 const Characters = () => {
-  let [pageNumber, setPageNumber] = useState(1);
-  let [fetchedData, updateFetchedData] = useState([]);
-  let [search, setSearch] = useState("");
-  let [status, setStatus] = useState("");
-  let [gender, setGender] = useState("");
-  let [species, setSpecies] = useState("");
+  const [pageNumber, setPageNumber] = useState(1);
+  const [search, setSearch] = useState("");
+  const [status, setStatus] = useState("");
+  const [gender, setGender] = useState("");
+  const [species, setSpecies] = useState("");
 
-  let { info, results } = fetchedData;
-  let api = `https://rickandmortyapi.com/api/character/?page=${pageNumber}&name=${search}&status=${status}&gender=${gender}&species=${species}`;
+  const { data, loading, error } = useCharacters(
+    pageNumber,
+    search,
+    status,
+    gender,
+    species
+  );
 
-  useEffect(() => {
-    (async () => {
-      let data = await fetch(api).then((res) => res.json());
-      updateFetchedData(data);
-    })();
-  }, [api]);
+  const { info, results } = data;
 
   return (
     <div className="App">
@@ -37,17 +39,25 @@ const Characters = () => {
           />
           <div className="col-8">
             <div className="row">
-              <Cards page="/" results={results} />
+              {loading ? (
+                <Loading />
+              ) : error ? (
+                <Error message={error} />
+              ) : (
+                <Cards page="/" results={results} />
+              )}
             </div>
           </div>
         </div>
       </div>
 
-      <Pagination
-        info={info}
-        pageNumber={pageNumber}
-        setPageNumber={setPageNumber}
-      />
+      {info?.pages && !error && (
+        <Pagination
+          info={info}
+          pageNumber={pageNumber}
+          setPageNumber={setPageNumber}
+        />
+      )}
     </div>
   );
 };
