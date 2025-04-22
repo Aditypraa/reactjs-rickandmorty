@@ -1,64 +1,52 @@
 import { Link } from "react-router-dom";
 import styles from "./Cards.module.scss";
 
-function Cards({ results, page }) {
-  let display;
+// Extracted status badge component
+const StatusBadge = ({ status }) => {
+  const badgeColors = {
+    Alive: "bg-success",
+    Dead: "bg-danger",
+    unknown: "bg-secondary",
+  };
 
-  if (results) {
-    display = results.map((data) => {
-      return (
+  const bgColor = badgeColors[status] || "bg-secondary";
+  return (
+    <div className={`${styles.badge} position-absolute badge ${bgColor}`}>
+      {status}
+    </div>
+  );
+};
+
+function Cards({ results, page }) {
+  if (!results || results.length === 0) {
+    return <div className="text-center">No Characters Found :/</div>;
+  }
+
+  return (
+    <>
+      {results.map((character) => (
         <Link
-          key={data.id}
-          to={`${page}${data.id}`}
+          key={character.id}
+          to={`${page}${character.id}`}
           className="col-4 mb-4 position-relative"
         >
           <div className={`${styles.card}`}>
             <img
-              src={data.image}
-              alt=""
+              src={character.image}
+              alt={character.name}
               className={`${styles.img} img-fluid`}
             />
-            <div style={{ padding: "10pdata" }} className="content">
-              <div className="fs-4 fw-bold mb-4">{data.name}</div>
+            <div className="content">
+              <div className="fs-4 fw-bold mb-4">{character.name}</div>
               <div className="fs-6">Last location</div>
-              <div className="fs-5">{data.location.name}</div>
+              <div className="fs-5">{character.location.name}</div>
             </div>
           </div>
-          {(() => {
-            if (data.status === "Alive") {
-              return (
-                <div
-                  className={`${styles.badge} position-absolute badge bg-success`}
-                >
-                  {data.status}
-                </div>
-              );
-            } else if (data.status === "Dead") {
-              return (
-                <div
-                  className={`${styles.badge} position-absolute badge bg-danger`}
-                >
-                  {data.status}
-                </div>
-              );
-            } else {
-              return (
-                <div
-                  className={`${styles.badge} position-absolute badge bg-secondary`}
-                >
-                  {data.status}
-                </div>
-              );
-            }
-          })()}
+          <StatusBadge status={character.status} />
         </Link>
-      );
-    });
-  } else {
-    display = "No Characterts Found :/";
-  }
-
-  return <>{display}</>;
+      ))}
+    </>
+  );
 }
 
 export default Cards;

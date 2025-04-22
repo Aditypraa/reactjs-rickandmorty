@@ -10,23 +10,26 @@ function Location() {
   const { total } = useLocationCount();
   const { info, residents, loading, error } = useLocation(id);
 
-  const { name, type, dimension } = info;
-
   return (
     <div className="container">
       <div className="row">
         <h1 className="text-center mb-4">
-          Location :{" "}
+          Location:{" "}
           <span className="text-primary">
-            {loading ? "Loading..." : error ? "Error" : name || "Unknown"}
+            {loading ? "Loading..." : error ? "Error" : info.name || "Unknown"}
           </span>
         </h1>
         <h5 className="text-center">
-          Dimension :{" "}
-          {loading ? "Loading..." : error ? "Error" : dimension || "Unknown"}
+          Dimension:{" "}
+          {loading
+            ? "Loading..."
+            : error
+            ? "Error"
+            : info.dimension || "Unknown"}
         </h5>
         <h5 className="text-center">
-          Type : {loading ? "Loading..." : error ? "Error" : type || "Unknown"}
+          Type:{" "}
+          {loading ? "Loading..." : error ? "Error" : info.type || "Unknown"}
         </h5>
       </div>
       <div className="row">

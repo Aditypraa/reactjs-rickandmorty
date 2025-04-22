@@ -1,4 +1,9 @@
 function FiltersButton({ task, setPageNumber, name, index, items }) {
+  const handleClick = () => {
+    task(items);
+    setPageNumber(1);
+  };
+
   return (
     <div>
       <style>
@@ -14,15 +19,12 @@ function FiltersButton({ task, setPageNumber, name, index, items }) {
       </style>
       <div className="form-check">
         <input
-          onClick={() => {
-            task(items);
-            setPageNumber(1);
-          }}
+          onClick={handleClick}
           className="form-check-input select"
           type="radio"
           name={name}
           id={`${name}-${index}`}
-        ></input>
+        />
         <label className="btn btn-outline-primary" htmlFor={`${name}-${index}`}>
           {items}
         </label>

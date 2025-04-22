@@ -1,6 +1,6 @@
+import { useState } from "react";
 import Filters from "../components/Filters/Filters";
 import Cards from "../components/Cards/Cards";
-import { useState } from "react";
 import Pagination from "../components/Pagination/Pagination";
 import Search from "../components/Search/Search";
 import { useCharacters } from "../hooks/useCharacters";

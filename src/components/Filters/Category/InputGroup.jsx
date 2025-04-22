@@ -6,14 +6,14 @@ function InputGroup({ total, name, setId }) {
         className="form-select"
         id={name}
       >
-        {total ? (
+        {!total ? (
+          <option>Loading...</option>
+        ) : (
           [...Array(total).keys()].map((item, index) => (
             <option key={index} value={item + 1}>
               {name} - {item + 1}
             </option>
           ))
-        ) : (
-          <option>Loading...</option>
         )}
       </select>
     </div>

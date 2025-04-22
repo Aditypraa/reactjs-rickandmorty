@@ -10,20 +10,22 @@ function Episodes() {
   const { total } = useEpisodeCount();
   const { info, characters, loading, error } = useEpisode(id);
 
-  const { name, air_date } = info;
-
   return (
     <div className="container">
       <div className="row">
         <h1 className="text-center mb-4">
-          Episodes :{" "}
+          Episodes:{" "}
           <span className="text-primary">
-            {loading ? "Loading..." : error ? "Error" : name || "Unknown"}
+            {loading ? "Loading..." : error ? "Error" : info.name || "Unknown"}
           </span>
         </h1>
         <h5 className="text-center">
-          Air Date :{" "}
-          {loading ? "Loading..." : error ? "Error" : air_date || "Unknown"}
+          Air Date:{" "}
+          {loading
+            ? "Loading..."
+            : error
+            ? "Error"
+            : info.air_date || "Unknown"}
         </h5>
       </div>
       <div className="row">

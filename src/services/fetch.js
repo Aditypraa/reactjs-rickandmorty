@@ -1,5 +1,12 @@
 import axios from "axios";
-import { axiosInstance } from "../utils/axios";
+import { axiosInstance } from "../lib/axios";
+
+const handleError = (error) => {
+  if (error.response) {
+    throw new Error(`API error: ${error.response.status}`);
+  }
+  throw error;
+};
 
 export const fetchCharacters = async (pageNumber, filters = {}) => {
   const { search = "", status = "", gender = "", species = "" } = filters;
@@ -9,10 +16,7 @@ export const fetchCharacters = async (pageNumber, filters = {}) => {
     );
     return response.data;
   } catch (error) {
-    if (error.response) {
-      throw new Error(`API error: ${error.response.status}`);
-    }
-    throw error;
+    return handleError(error);
   }
 };
 
@@ -21,10 +25,7 @@ export const fetchSingleCharacter = async (id) => {
     const response = await axiosInstance.get(`/character/${id}`);
     return response.data;
   } catch (error) {
-    if (error.response) {
-      throw new Error(`API error: ${error.response.status}`);
-    }
-    throw error;
+    return handleError(error);
   }
 };
 
@@ -33,10 +34,7 @@ export const fetchEpisode = async (id) => {
     const response = await axiosInstance.get(`/episode/${id}`);
     return response.data;
   } catch (error) {
-    if (error.response) {
-      throw new Error(`API error: ${error.response.status}`);
-    }
-    throw error;
+    return handleError(error);
   }
 };
 
@@ -45,10 +43,7 @@ export const fetchEpisodeCount = async () => {
     const response = await axiosInstance.get(`/episode`);
     return response.data.info.count;
   } catch (error) {
-    if (error.response) {
-      throw new Error(`API error: ${error.response.status}`);
-    }
-    throw error;
+    return handleError(error);
   }
 };
 
@@ -57,10 +52,7 @@ export const fetchLocation = async (id) => {
     const response = await axiosInstance.get(`/location/${id}`);
     return response.data;
   } catch (error) {
-    if (error.response) {
-      throw new Error(`API error: ${error.response.status}`);
-    }
-    throw error;
+    return handleError(error);
   }
 };
 
@@ -69,25 +61,18 @@ export const fetchLocationCount = async () => {
     const response = await axiosInstance.get(`/location`);
     return response.data.info.count;
   } catch (error) {
-    if (error.response) {
-      throw new Error(`API error: ${error.response.status}`);
-    }
-    throw error;
+    return handleError(error);
   }
 };
 
 export const fetchMultipleCharacters = async (urls) => {
   if (!urls || urls.length === 0) return [];
   try {
-    // Using axios.get directly for full URLs instead of axiosInstance
     const characters = await Promise.all(
       urls.map((url) => axios.get(url).then((res) => res.data))
     );
     return characters;
   } catch (error) {
-    if (error.response) {
-      throw new Error(`API error: ${error.response.status}`);
-    }
-    throw error;
+    return handleError(error);
   }
 };
