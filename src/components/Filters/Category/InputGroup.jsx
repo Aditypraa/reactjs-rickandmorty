@@ -1,9 +1,9 @@
-function InputGroup({ total, name, setId }) {
+function InputGroup({ total, name, setId, customClass = "" }) {
   return (
     <div className="input-group mb-3">
       <select
         onChange={(e) => setId(e.target.value)}
-        className="form-select"
+        className={`form-select ${customClass}`}
         id={name}
       >
         {!total ? (

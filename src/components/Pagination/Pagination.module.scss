@@ -1,0 +1,274 @@
+.paginationWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem 0;
+  position: sticky;
+  bottom: 0;
+  background-color: rgba(38, 44, 58, 0.85);
+  z-index: 10;
+  backdrop-filter: blur(8px);
+  border-top: 1px solid rgba(151, 206, 76, 0.1);
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateY(100%);
+  pointer-events: none;
+
+  // Default hidden state before scrolling
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+  }
+
+  // By default, use compact mode
+  &.sticky {
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.15);
+  }
+
+  // Expanded mode at bottom
+  &.fullMode {
+    padding: 1rem 0;
+    background-color: rgba(38, 44, 58, 0.95);
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.25);
+  }
+
+  .pageCounter,
+  .jumpToPage {
+    display: none;
+  }
+
+  .pagination {
+    margin: 0.25rem 0;
+  }
+}
+
+// Full mode at bottom styles
+.fullMode {
+  .pageCounter,
+  .jumpToPage {
+    display: flex;
+  }
+
+  .pagination {
+    margin: 0.5rem 0;
+  }
+}
+
+.compactMode {
+  .pageCounter {
+    display: none;
+  }
+
+  .jumpToPage {
+    display: none;
+  }
+
+  .pagination {
+    margin: 0.25rem 0;
+  }
+}
+
+.pagination {
+  margin: 0.5rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  gap: 0.5rem;
+  flex-wrap: wrap; // Allow wrapping on very small screens
+
+  :global(.page-item) {
+    margin: 0 2px;
+
+    @media (max-width: 576px) {
+      margin: 0 1px;
+    }
+  }
+
+  :global(.page-link) {
+    border-radius: 50% !important;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+    cursor: pointer;
+
+    @media (max-width: 576px) {
+      width: 35px;
+      height: 35px;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 380px) {
+      width: 32px;
+      height: 32px;
+      font-size: 0.8rem;
+    }
+  }
+
+  :global(.active .page-link) {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px var(--glow-color);
+  }
+}
+
+// Compact version for sticky mode
+.compactMode .pagination {
+  :global(.page-link) {
+    width: 32px;
+    height: 32px;
+    font-size: 0.8rem;
+
+    @media (max-width: 480px) {
+      width: 28px;
+      height: 28px;
+      font-size: 0.75rem;
+    }
+  }
+}
+
+.navButton {
+  margin: 0 5px;
+
+  @media (max-width: 480px) {
+    margin: 0 3px;
+  }
+}
+
+.navLink {
+  padding: 8px 16px;
+  border-radius: 50px !important;
+  background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+  border: none;
+  color: var(--dark-bg) !important;
+  box-shadow: 0 4px 10px rgba(59, 203, 255, 0.25);
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-block;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  min-width: 80px;
+  text-align: center;
+
+  @media (max-width: 576px) {
+    padding: 6px 14px;
+    min-width: 70px;
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 380px) {
+    padding: 6px 12px;
+    min-width: 40px;
+    font-size: 1rem; // Slightly larger for arrow symbols
+  }
+}
+
+// Compact nav buttons for sticky mode
+.compactMode {
+  .navLink {
+    padding: 6px 12px;
+    min-width: 60px;
+    font-size: 0.85rem;
+
+    @media (max-width: 480px) {
+      padding: 5px 10px;
+      min-width: 35px;
+    }
+  }
+}
+
+.prevButton .navLink:hover {
+  transform: translateX(-3px);
+}
+
+.nextButton .navLink:hover {
+  transform: translateX(3px);
+}
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.pageCounter {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+
+  @media (max-width: 380px) {
+    font-size: 0.8rem;
+  }
+
+  strong {
+    color: var(--primary-color);
+    font-weight: 600;
+  }
+}
+
+.jumpToPage {
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+
+  @media (max-width: 576px) {
+    margin-top: 0.75rem;
+  }
+
+  label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-right: 0.5rem;
+    margin-bottom: 0;
+
+    @media (max-width: 576px) {
+      font-size: 0.8rem;
+    }
+  }
+
+  input {
+    width: 60px;
+    height: 30px;
+    border-radius: 4px;
+    background-color: var(--card-bg);
+    border: 1px solid rgba(151, 206, 76, 0.3);
+    color: var(--text-color);
+    text-align: center;
+    padding: 0 0.5rem;
+
+    @media (max-width: 576px) {
+      width: 50px;
+      height: 28px;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+  }
+
+  button {
+    background-color: var(--card-bg);
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    border-radius: 4px;
+    padding: 0 0.75rem;
+    height: 30px;
+    margin-left: 0.5rem;
+    transition: all 0.2s ease;
+
+    @media (max-width: 576px) {
+      height: 28px;
+      padding: 0 0.6rem;
+    }
+
+    &:hover {
+      background-color: var(--primary-color);
+      color: var(--dark-bg);
+    }
+  }
+}

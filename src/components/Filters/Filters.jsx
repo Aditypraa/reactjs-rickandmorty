@@ -1,6 +1,7 @@
 import Gender from "./Category/Gender";
 import Species from "./Category/Species";
 import Status from "./Category/Status";
+import styles from "./Filters.module.scss";
 
 export default function Filters({
   setStatus,
@@ -15,18 +16,15 @@ export default function Filters({
     setPageNumber("");
     window.location.reload(false);
   };
-  return (
-    <div className="col-3">
-      <div className="text-center fw-bold fs-4 mb-2">Filter</div>
-      <div
-        onClick={clear}
-        style={{ cursor: "pointer" }}
-        className="text-center text-primary text-decoration-underline mb-4"
-      >
-        Clear Filter
-      </div>
 
-      <div className="accordion" id="accordionExample">
+  return (
+    <div className={`${styles.filtersContainer} fade-in`}>
+      <h2 className={styles.filterTitle}>Filters</h2>
+      <span onClick={clear} className={styles.clearFilters}>
+        Clear All Filters
+      </span>
+
+      <div className={`accordion ${styles.accordion}`} id="accordionExample">
         <Status setStatus={setStatus} setPageNumber={setPageNumber} />
         <Species setSpecies={setSpecies} setPageNumber={setPageNumber} />
         <Gender setGender={setGender} setPageNumber={setPageNumber} />

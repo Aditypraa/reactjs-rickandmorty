@@ -2,45 +2,65 @@ import { useState } from "react";
 import Cards from "../components/Cards/Cards";
 import InputGroup from "../components/Filters/Category/InputGroup";
 import { useEpisode, useEpisodeCount } from "../hooks/useEpisode";
-import Loading from "../components/UI/Loading";
 import Error from "../components/UI/Error";
+import styles from "./Episodes.module.scss";
 
 function Episodes() {
   const [id, setId] = useState(1);
   const { total } = useEpisodeCount();
   const { info, characters, loading, error } = useEpisode(id);
 
+  const formatEpisodeCode = (code) => {
+    if (!code) return "Unknown";
+    const season = code.slice(1, 3);
+    const episode = code.slice(4);
+    return `S${season}E${episode}`;
+  };
+
   return (
-    <div className="container">
-      <div className="row">
-        <h1 className="text-center mb-4">
-          Episodes:{" "}
-          <span className="text-primary">
-            {loading ? "Loading..." : error ? "Error" : info.name || "Unknown"}
-          </span>
-        </h1>
-        <h5 className="text-center">
-          Air Date:{" "}
-          {loading
-            ? "Loading..."
-            : error
-            ? "Error"
-            : info.air_date || "Unknown"}
-        </h5>
-      </div>
-      <div className="row">
-        <div className="col-3">
-          <h4 className="text-center mb-4">Pick Episodes</h4>
-          <InputGroup setId={setId} name={"Episode"} total={total} />
+    <div className="container fade-in">
+      {loading ? (
+        <div className={styles.episodeHeaderSkeleton}>
+          <div className={styles.episodeNameSkeleton}></div>
+          <div className={styles.episodeAirDateSkeleton}></div>
         </div>
-        <div className="col-8">
+      ) : error ? (
+        <Error message={error} />
+      ) : (
+        <div className={styles.episodeHeader}>
+          <div className={`${styles.badge} float`}>
+            <i className="fas fa-tv"></i> {formatEpisodeCode(info.episode)}
+          </div>
+          <h1>
+            Episode:{" "}
+            <span className={styles.episodeName}>{info.name || "Unknown"}</span>
+          </h1>
+          <h5>
+            Air Date:{" "}
+            <span className="text-accent">{info.air_date || "Unknown"}</span>
+          </h5>
+        </div>
+      )}
+
+      <div className={styles.episodesContent}>
+        <div className={styles.filterColumn}>
+          <h4 className={styles.pickerTitle}>Pick an Episode</h4>
+          <div className={styles.selectGroup}>
+            <InputGroup
+              setId={setId}
+              name={"Episode"}
+              total={total}
+              customClass={styles.select}
+            />
+          </div>
+        </div>
+
+        <div className={styles.episodeGrid}>
           <div className="row">
-            {loading ? (
-              <Loading />
-            ) : error ? (
+            {error ? (
               <Error message={error} />
             ) : (
-              <Cards page="/episodes/" results={characters} />
+              <Cards page="/episodes/" results={characters} loading={loading} />
             )}
           </div>
         </div>

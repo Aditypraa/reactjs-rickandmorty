@@ -1,0 +1,158 @@
+.detailContainer {
+  background-color: var(--card-bg);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  max-width: 800px;
+  margin: 0 auto;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.imageContainer {
+  position: relative;
+  height: 400px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #222730; // Darker background for character contrast
+
+  @media (min-width: 768px) {
+    height: 450px;
+  }
+
+  @media (max-width: 576px) {
+    height: 320px;
+  }
+
+  @media (max-width: 400px) {
+    height: 280px;
+  }
+}
+
+.image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; // Changed from "cover" to "contain" to show full character
+  transition: transform 0.5s ease;
+  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.3));
+
+  &:hover {
+    transform: scale(1.03); // Reduced zoom effect on hover
+  }
+}
+
+// Add styling for image background
+.imageBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  filter: blur(12px) brightness(0.3);
+  z-index: 0;
+  opacity: 0.6;
+}
+
+.name {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 1rem 0;
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
+
+  @media (max-width: 576px) {
+    font-size: 1.5rem;
+    margin: 0.8rem 0;
+  }
+}
+
+.statusBadge {
+  font-size: 1rem !important;
+  padding: 0.5rem 1.5rem;
+  border-radius: 50px;
+  margin-bottom: 1rem;
+  display: inline-block;
+
+  @media (max-width: 576px) {
+    font-size: 0.9rem !important;
+    padding: 0.4rem 1.2rem;
+    margin-bottom: 0.8rem;
+  }
+}
+
+.content {
+  padding: 2rem;
+
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+  }
+
+  @media (max-width: 576px) {
+    padding: 1.2rem;
+  }
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (max-width: 576px) {
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+}
+
+.infoItem {
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  padding: 1rem;
+
+  h3 {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  p {
+    font-size: 1.2rem;
+    margin: 0;
+    font-weight: 500;
+    color: var(--text-color);
+  }
+
+  @media (max-width: 576px) {
+    padding: 0.8rem;
+
+    h3 {
+      font-size: 0.8rem;
+      margin-bottom: 0.3rem;
+    }
+
+    p {
+      font-size: 1rem;
+    }
+  }
+}
+
+.backButton {
+  margin-top: 2rem;
+  display: inline-block;
+
+  @media (max-width: 576px) {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+  }
+}

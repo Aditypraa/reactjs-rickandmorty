@@ -4,6 +4,7 @@ import InputGroup from "../components/Filters/Category/InputGroup";
 import { useLocation, useLocationCount } from "../hooks/useLocation";
 import Loading from "../components/UI/Loading";
 import Error from "../components/UI/Error";
+import styles from "./Locations.module.scss";
 
 function Location() {
   const [id, setId] = useState(1);
@@ -11,40 +12,66 @@ function Location() {
   const { info, residents, loading, error } = useLocation(id);
 
   return (
-    <div className="container">
-      <div className="row">
-        <h1 className="text-center mb-4">
-          Location:{" "}
-          <span className="text-primary">
-            {loading ? "Loading..." : error ? "Error" : info.name || "Unknown"}
-          </span>
-        </h1>
-        <h5 className="text-center">
-          Dimension:{" "}
-          {loading
-            ? "Loading..."
-            : error
-            ? "Error"
-            : info.dimension || "Unknown"}
-        </h5>
-        <h5 className="text-center">
-          Type:{" "}
-          {loading ? "Loading..." : error ? "Error" : info.type || "Unknown"}
-        </h5>
-      </div>
-      <div className="row">
-        <div className="col-3">
-          <h4 className="text-center mb-4">Pick Location</h4>
-          <InputGroup setId={setId} name={"Location"} total={total} />
+    <div className="container fade-in">
+      {loading ? (
+        <div className={styles.locationHeaderSkeleton}>
+          <div className={styles.locationNameSkeleton}></div>
+          <div className={styles.locationInfoSkeleton}>
+            <div className={styles.infoItemSkeleton}></div>
+            <div className={styles.infoItemSkeleton}></div>
+            <div className={styles.infoItemSkeleton}></div>
+          </div>
         </div>
-        <div className="col-8">
+      ) : error ? (
+        <Error message={error} />
+      ) : (
+        <div className={styles.locationHeader}>
+          <div className={`${styles.residentCountBadge} float`}>
+            <i className="fas fa-user-astronaut"></i> {residents.length}{" "}
+            Residents
+          </div>
+          <h1>
+            Location:{" "}
+            <span className={styles.locationName}>
+              {info.name || "Unknown"}
+            </span>
+          </h1>
+          <div className={styles.locationInfo}>
+            <div className={styles.infoItem}>
+              <h6>TYPE</h6>
+              <p>{info.type || "Unknown"}</p>
+            </div>
+            <div className={styles.infoItem}>
+              <h6>DIMENSION</h6>
+              <p>{info.dimension || "Unknown"}</p>
+            </div>
+            <div className={styles.infoItem}>
+              <h6>CREATED</h6>
+              <p>{new Date(info.created).toLocaleDateString() || "Unknown"}</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className={styles.locationsContent}>
+        <div className={styles.filterColumn}>
+          <h4 className={styles.pickerTitle}>Pick a Location</h4>
+          <div className={styles.selectGroup}>
+            <InputGroup
+              setId={setId}
+              name={"Location"}
+              total={total}
+              customClass={styles.select}
+            />
+          </div>
+        </div>
+
+        <div className={styles.locationGrid}>
           <div className="row">
-            {loading ? (
-              <Loading />
-            ) : error ? (
+            {error ? (
               <Error message={error} />
             ) : (
-              <Cards page="/locations/" results={residents} />
+              <Cards page="/locations/" results={residents} loading={loading} />
             )}
           </div>
         </div>

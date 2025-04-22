@@ -1,10 +1,12 @@
 import React from "react";
+import "./Loading.scss";
 
 const Loading = () => {
   return (
-    <div className="d-flex justify-content-center my-5">
-      <div className="spinner-border text-primary" role="status">
-        <span className="visually-hidden">Loading...</span>
+    <div className="loading-container">
+      <div className="portal-loader">
+        <div className="portal-spinner"></div>
+        <div className="loading-text">Loading...</div>
       </div>
     </div>
   );

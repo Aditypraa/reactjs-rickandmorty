@@ -1,0 +1,132 @@
+.activeFiltersContainer {
+  margin: 0.5rem 0 1.5rem;
+  transition: all 0.3s ease;
+  max-width: 1000px;
+  margin: 0 auto 1.5rem;
+
+  @media (min-width: 1600px) {
+    max-width: 1200px;
+    margin: 0 auto 2rem;
+
+    h6 {
+      font-size: 1.1rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    margin: 0 auto 1.2rem;
+  }
+
+  @media (max-width: 576px) {
+    margin: 0 auto 1rem;
+  }
+}
+
+.activeFiltersList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+
+  @media (min-width: 1600px) {
+    gap: 0.7rem;
+    margin-top: 0.7rem;
+  }
+
+  @media (max-width: 576px) {
+    gap: 0.4rem;
+    margin-top: 0.4rem;
+  }
+}
+
+.activeFilterTag {
+  display: inline-flex;
+  align-items: center;
+  background: var(--card-bg);
+  border: 1px solid rgba(151, 206, 76, 0.3);
+  border-radius: 50px;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.85rem;
+  color: var(--text-color);
+  transition: all 0.2s ease;
+  animation: fadeIn 0.3s ease forwards;
+
+  &:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+  }
+
+  span {
+    margin-right: 0.5rem;
+    font-weight: 500;
+  }
+
+  .filterType {
+    color: var(--accent-color);
+    margin-right: 0.2rem;
+  }
+
+  .removeBtn {
+    background: none;
+    border: none;
+    color: var(--danger);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin-left: 0.5rem;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: var(--danger);
+      color: white;
+    }
+  }
+
+  @media (min-width: 1600px) {
+    padding: 0.4rem 1rem;
+    font-size: 0.95rem;
+
+    .removeBtn {
+      width: 20px;
+      height: 20px;
+      font-size: 0.8rem;
+      margin-left: 0.6rem;
+    }
+  }
+
+  @media (max-width: 576px) {
+    padding: 0.25rem 0.7rem;
+    font-size: 0.8rem;
+
+    span {
+      margin-right: 0.4rem;
+    }
+
+    .removeBtn {
+      width: 16px;
+      height: 16px;
+      font-size: 0.65rem;
+      margin-left: 0.4rem;
+    }
+  }
+}
+
+.emptyMessage {
+  color: var(--text-secondary);
+  font-style: italic;
+  font-size: 0.9rem;
+
+  @media (min-width: 1600px) {
+    font-size: 1rem;
+  }
+
+  @media (max-width: 576px) {
+    font-size: 0.8rem;
+  }
+}

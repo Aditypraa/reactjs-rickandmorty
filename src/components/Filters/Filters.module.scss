@@ -1,0 +1,160 @@
+.filtersContainer {
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  height: fit-content;
+  width: 100%;
+
+  @media (min-width: 1600px) {
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  @media (min-width: 992px) and (max-width: 1199px) {
+    margin-right: 0;
+  }
+
+  @media (max-width: 768px) {
+    padding: 1.2rem;
+  }
+
+  @media (max-width: 576px) {
+    padding: 1rem;
+  }
+}
+
+.filterTitle {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+  color: var(--text-color);
+  border-bottom: 2px solid rgba(151, 206, 76, 0.3);
+  padding-bottom: 0.8rem;
+
+  @media (min-width: 1600px) {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.6rem;
+  }
+
+  @media (max-width: 576px) {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+}
+
+.clearFilters {
+  font-size: 0.9rem;
+  color: var(--accent-color);
+  text-decoration: underline;
+  cursor: pointer;
+  margin-bottom: 1.2rem;
+  display: inline-block;
+  transition: all 0.3s;
+
+  &:hover {
+    color: var(--primary-color);
+    transform: translateY(-2px);
+  }
+
+  @media (min-width: 1600px) {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  @media (max-width: 576px) {
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.accordion {
+  --bs-accordion-bg: transparent;
+
+  :global(.accordion-item) {
+    border-color: rgba(151, 206, 76, 0.1);
+
+    :global(.accordion-header) {
+      :global(.accordion-button) {
+        @media (min-width: 1600px) {
+          font-size: 1.1rem;
+          padding: 1.2rem;
+        }
+      }
+    }
+
+    :global(.accordion-body) {
+      @media (min-width: 1600px) {
+        padding: 1.2rem 1.5rem;
+      }
+    }
+  }
+}
+
+.filtersGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+
+  @media (min-width: 1600px) {
+    gap: 0.7rem;
+    margin-top: 0.7rem;
+    margin-bottom: 0.7rem;
+  }
+
+  @media (max-width: 576px) {
+    gap: 0.4rem;
+  }
+}
+
+.filterButton {
+  input[type="radio"] {
+    display: none;
+  }
+
+  label {
+    cursor: pointer;
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+    margin: 0;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+
+    &:hover {
+      background-color: rgba(68, 219, 74, 0.1);
+    }
+
+    @media (min-width: 1600px) {
+      padding: 0.5rem 1.2rem;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 576px) {
+      padding: 0.3rem 0.8rem;
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 400px) {
+      padding: 0.25rem 0.7rem;
+      font-size: 0.75rem;
+    }
+  }
+
+  input:checked + label {
+    background-color: var(--primary-color);
+    color: var(--dark-bg);
+  }
+}
